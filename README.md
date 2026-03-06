@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PlayLoom
 
-## Getting Started
+PlayLoom は Next.js + Socket.IO で作られたリアルタイム対戦アプリです。  
+`server.js` のカスタムサーバーで WebSocket 通信を処理します。
 
-First, run the development server:
+## 必要環境
+
+- Node.js（LTS 推奨）
+- npm
+
+## セットアップ
+
+```bash
+npm install
+```
+
+## 開発サーバー起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+起動後、ブラウザで `http://localhost:3000` を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 本番ビルドと起動
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Redis について
 
-To learn more about Next.js, take a look at the following resources:
+- `REDIS_URL` を設定していない場合は、メモリ上のモック Redis で動作します（再起動でデータ消失）。
+- 永続化したい場合は `REDIS_URL` を環境変数に設定してください。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 無料ホスティング（例）
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+WebSocket を使う構成のため、Vercel より Render が適しています。
 
-## Deploy on Vercel
+1. GitHub に push
+2. Render で `New > Web Service`
+3. Build Command: `npm install && npm run build`
+4. Start Command: `npm start`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 参考リンク
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js: https://nextjs.org/docs
+- Socket.IO: https://socket.io/docs/v4
+- Render: https://render.com/docs
