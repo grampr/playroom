@@ -12,13 +12,14 @@ export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
 
   const generateRoomId = () => {
-    if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
-      return crypto.randomUUID();
+    const webCrypto = globalThis.crypto;
+    if (webCrypto?.randomUUID) {
+      return webCrypto.randomUUID();
     }
     // Fallback UUID v4 for non-HTTPS or older browsers
     const bytes = new Uint8Array(16);
-    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
-      crypto.getRandomValues(bytes);
+    if (webCrypto?.getRandomValues) {
+      webCrypto.getRandomValues(bytes);
     } else {
       for (let i = 0; i < bytes.length; i += 1) {
         bytes[i] = Math.floor(Math.random() * 256);
